@@ -2,7 +2,7 @@
 
 Resium is a reddit client for the web.
 
-**_It's an alpha software and things may break or worse, cause quite a bit of damage so do not use it with your primary reddit account._**
+**_This app is currently in development and I highly advise against using it with your primary reddit account as it may (and probably will) break something_**
 
 ## Run (Development mode)
 
