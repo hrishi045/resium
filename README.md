@@ -13,7 +13,7 @@ Resium is a reddit client for the web.
 openssl rand -base64 63
 ```
 
-3. Create a .env.local using [[.env.example]] as the template. Include CLIENT_ID, CLIENT_SECRET obtained from the previous step.
+3. Create a .env.local using [.env.example](.env.example) as the template. Include CLIENT_ID, CLIENT_SECRET obtained from the previous step.
 4. Install dependencies
 
 ```sh
@@ -28,4 +28,4 @@ yarn dev
 
 Copyright &copy; 2021 hrishi045
 
-Licensed under LGPLv3 (See [[LICENSE.md]])
+Licensed under LGPLv3 (See [LICENSE.md](LICENSE.md))
