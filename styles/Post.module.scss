@@ -1,0 +1,26 @@
+.post {
+  max-width: 1200px;
+  margin: 4em auto;
+  font-family: "Roboto", sans-serif;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.subreddit {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: rebeccapurple;
+}
+
+.author {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgb(138, 55, 25);
+}
+
+.video, .image {
+  max-width: 100%;
+}

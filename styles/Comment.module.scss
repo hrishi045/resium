@@ -1,0 +1,138 @@
+.comment {
+  .text {
+    color: #444444;
+    margin-bottom: 0.5em;
+  }
+
+  .header {
+    font-size: 0.75rem;
+    margin-top: 0.5em;
+    display: flex;
+    gap: 0.5em;
+    color: #999999;
+
+    &>*::before {
+      content: '\00B7';
+      font-weight: bold;
+      display: inline-block;
+      margin-right: 0.5em;
+    }
+  }
+
+  .author {
+    font-weight: 500;
+    color: rgb(138, 55, 25);
+    border-left: 0;
+    padding-left: 0;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .body {
+    margin: 0;
+    p {
+      padding: 0;
+    }
+    overflow: hidden;
+    margin-top: -1px;
+
+    .wrapper {
+      border-top: 1px solid #eeeeee;
+      border-bottom: 1px solid #eeeeee;
+      font-size: 0.9rem;
+      padding: 0.25em 0;
+      padding-left: 0.75em;
+
+      .actions {
+        line-height: 1.2;
+        padding-bottom: 0.5em;
+      }
+
+      .votes {
+        display: flex;
+        gap: 0.25em;
+
+        button {
+          color: #999999;
+          cursor: pointer;
+          background: 0;
+          border: 0;
+          padding: 0;
+          padding-bottom: 0.2em;
+          border-bottom: 1px solid #aaaaaa;
+
+          &.done:first-child {
+            color: rgb(194, 83, 42);
+          }
+  
+          &.done:last-child {
+            color: rgb(92, 71, 212);
+          }
+
+          &:hover {
+            color: #555555;
+          }
+        }
+      }
+    }
+  }
+
+  .body:first-child {
+    border-left: 4px solid #666666;
+  }
+
+  .comment {
+    margin-left: 0em;
+    padding-left: 1vw;
+
+    .body {
+      border-left: 4px solid palevioletred;
+    }
+
+    .comment {
+      .body {
+        border-color: lightblue;
+      }
+
+      .comment {
+        .body {
+          border-color: lightgreen;
+        }
+
+        .comment {
+          .body {
+            border-color: lightcoral;
+          }
+
+          .comment {
+            .body {
+              border-color: lightsalmon;
+            }
+
+            .comment {
+              .body {
+                border-color: lightseagreen;
+              }
+
+              .comment {
+                .body {
+                  border-color: lightsteelblue;
+                }
+
+                .comment {
+                  .body {
+                    border-color: lightpink;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  overflow-wrap: anywhere;
+}
