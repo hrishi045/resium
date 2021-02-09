@@ -51,7 +51,7 @@ export function useMoreComments({ id }) {
 }
 
 export function useHot() {
-  const { data, error } = useSWR(`/api/reddit/hot?limit=100`, fetcher)
+  const { data, error } = useSWR(`/api/reddit/hot?limit=30`, fetcher)
 
   return {
     data: data,

@@ -11,7 +11,7 @@
     gap: 0.5em;
     color: #999999;
 
-    &>*::before {
+    & > *::before {
       content: '\00B7';
       font-weight: bold;
       display: inline-block;
@@ -39,11 +39,11 @@
     margin-top: -1px;
 
     .wrapper {
-      border-top: 1px solid #eeeeee;
-      border-bottom: 1px solid #eeeeee;
+      border-top: 1px solid #dddddd;
+      border-bottom: 1px solid #dddddd;
       font-size: 0.9rem;
-      padding: 0.25em 0;
-      padding-left: 0.75em;
+      padding: 0.25em 0.75em;
+      // padding-left: ;
 
       .actions {
         line-height: 1.2;
@@ -66,7 +66,7 @@
           &.done:first-child {
             color: rgb(194, 83, 42);
           }
-  
+
           &.done:last-child {
             color: rgb(92, 71, 212);
           }
@@ -81,49 +81,42 @@
 
   .body:first-child {
     border-left: 4px solid #666666;
+    border-right: 4px solid hsl(0, 0%, 64%);
   }
 
   .comment {
     margin-left: 0em;
     padding-left: 1vw;
-
     .body {
-      border-left: 4px solid palevioletred;
+      border-left: 4px solid hsl(340, 57%, 64%);
     }
-
     .comment {
       .body {
-        border-color: lightblue;
+        border-left-color: hsl(60, 57%, 64%);
       }
-
       .comment {
         .body {
-          border-color: lightgreen;
+          border-left-color: hsl(270, 57%, 64%);
         }
-
         .comment {
           .body {
-            border-color: lightcoral;
+            border-left-color: hsl(0, 57%, 64%);
           }
-
           .comment {
             .body {
-              border-color: lightsalmon;
+              border-left-color: hsl(200, 57%, 64%);
             }
-
             .comment {
               .body {
-                border-color: lightseagreen;
+                border-left-color: hsl(90, 57%, 64%);
               }
-
               .comment {
                 .body {
-                  border-color: lightsteelblue;
+                  border-left-color: hsl(340, 57%, 64%);
                 }
-
                 .comment {
                   .body {
-                    border-color: lightpink;
+                    border-left-color: hsl(190, 57%, 64%);
                   }
                 }
               }
