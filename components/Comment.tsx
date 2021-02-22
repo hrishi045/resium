@@ -3,7 +3,10 @@ import React from 'react'
 import styles from '../styles/Comment.module.scss'
 import { replaceRedditLinks } from '../utils/processMarkdown'
 
-const Comment = ({ comment }) => {
+interface CommentProps {
+  comment: Record<string, any>
+}
+const Comment = ({ comment }: CommentProps) => {
   return (
     <div className={styles.comment}>
       <div className={styles.body}>

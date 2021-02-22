@@ -20,8 +20,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const sw = await getSnoowrap(req)
 
-  console.log(qs.get('id'))
-
   const { id } = req.query
 
   if (!id) {

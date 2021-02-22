@@ -1,8 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import Comment from './Comment'
+import React, {
+  createRef,
+  RefObject,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 import Link from 'next/link'
 import { useMoreCommentsForPost } from '../redditapi/hooks'
 import useKeyPress from '../utils/useKeyPress'
+import TopLevelComment from './TopLevelComment'
+import { OrderedMap } from 'immutable'
 
 export function PostCommentsInner({ currentPath, sub, id, comment }) {
   const { data, isLoading, isError } = useMoreCommentsForPost({
@@ -11,38 +19,76 @@ export function PostCommentsInner({ currentPath, sub, id, comment }) {
     comment,
   })
 
-  console.log(data)
+  const downPress = useKeyPress('j')
+  const upPress = useKeyPress('k')
+  const [scrollPos, setScrollPos] = useState(0)
+  const [refs, setRefs] = useState<RefObject<HTMLDivElement>[]>([])
+  const renders = useRef(0)
 
-  const [selected, setSelected] = useState(undefined)
-  const downPress = useKeyPress('ArrowDown')
-  const upPress = useKeyPress('ArrowUp')
-  const enterPress = useKeyPress('Enter')
-  const [cursor, setCursor] = useState(0)
-  const [hovered, setHovered] = useState(undefined)
+  const [cursor, dispatch] = useReducer(function reducer(state, action) {
+    if (action.type === 'add') {
+      return state.set(action.key, true)
+    } else if (action.type === 'remove') {
+      return state.set(action.key, false)
+    }
+  }, OrderedMap())
+
+  renders.current++
+
+  const nextId = Math.min(
+    Math.min(
+      ...cursor
+        .toArray()
+        .filter((x) => x[1])
+        .map((x) => x[0])
+    ) + 1,
+    refs.length - 1
+  )
+  const prevId = Math.max(
+    Math.min(
+      ...cursor
+        .toArray()
+        .filter((x) => x[1])
+        .map((x) => x[0])
+    ) - 1,
+    0
+  )
+
+  // Resets the refs on new data
+  useEffect(() => {
+    if (data)
+      setRefs((elRefs) =>
+        Array(data.length)
+          .fill(null)
+          .map((_, i) => elRefs[i] || createRef())
+      )
+  }, [data])
+
+  // Handles the scrolling into view
+  useEffect(() => {
+    if (refs[scrollPos])
+      window.scrollTo({
+        top:
+          refs[scrollPos].current.getBoundingClientRect().top +
+          window.pageYOffset,
+        behavior: 'smooth',
+      })
+  }, [scrollPos])
 
   useEffect(() => {
     if (data && data.length && downPress) {
-      setCursor((prevState) =>
-        prevState < data.length - 1 ? prevState + 1 : prevState
-      )
+      setScrollPos(nextId)
     }
-    console.log('DOWNN', data)
   }, [downPress])
+
   useEffect(() => {
     if (data && data.length && upPress) {
-      setCursor((prevState) => (prevState > 0 ? prevState - 1 : prevState))
+      setScrollPos(prevId)
     }
   }, [upPress])
-  useEffect(() => {
-    if (data && data.length && enterPress) {
-      setSelected(data[cursor])
-    }
-  }, [cursor, enterPress])
-  useEffect(() => {
-    if (data && data.length && hovered) {
-      setCursor(data.indexOf(hovered))
-    }
-  }, [hovered])
+
+  if (isError) return <p>Failed to load comments</p>
+  if (isLoading) return <p>Loading comments...</p>
 
   if (isError) return <p>Failed to load comments</p>
   if (isLoading) return <p>Loading comments...</p>
@@ -58,15 +104,14 @@ export function PostCommentsInner({ currentPath, sub, id, comment }) {
         </Link>
       )}
       {data.map((comment, i) => (
-        <div
+        <TopLevelComment
           key={comment.name}
-          className={`comment ${i === cursor ? 'active' : ''}`}
-          onClick={() => setSelected(comment)}
-          onMouseEnter={() => setHovered(comment)}
-          onMouseLeave={() => setHovered(undefined)}
-        >
-          <Comment comment={comment} />
-        </div>
+          cursor={cursor}
+          dispatch={dispatch}
+          refs={refs}
+          id={i}
+          comment={comment}
+        />
       ))}
     </div>
   )

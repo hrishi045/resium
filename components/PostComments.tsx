@@ -1,25 +1,70 @@
-import React, { createRef, useEffect, useState } from 'react'
-import Comment from './Comment'
-import Link from 'next/link'
-import { useCommentsForPost, useMoreCommentsForPost } from '../redditapi/hooks'
+import { OrderedMap } from 'immutable'
+import React, {
+  createRef,
+  RefObject,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
+import { useCommentsForPost } from '../redditapi/hooks'
 import useKeyPress from '../utils/useKeyPress'
-import useOnScreen from '../utils/useOnScreen'
+import TopLevelComment from './TopLevelComment'
 
 export function PostComments({ sub, id }) {
-  const { data, isLoading, isError } = useCommentsForPost({
+  const {
+    data,
+    isLoading,
+    isError,
+  }: {
+    data: Record<string, any>[]
+    isLoading: boolean
+    isError: boolean
+  } = useCommentsForPost({
     sub,
     id,
   })
 
-  const [selected, setSelected] = useState(undefined)
   const downPress = useKeyPress('j')
   const upPress = useKeyPress('k')
-  const enterPress = useKeyPress('Enter')
-  const [cursor, setCursor] = useState(0)
-  const [hovered, setHovered] = useState(undefined)
-  const [refs, setRefs] = useState([])
-  // const refsOnScreen = useOnScreen(refs)
+  const [scrollPos, setScrollPos] = useState(0)
+  const [refs, setRefs] = useState<RefObject<HTMLDivElement>[]>([])
+  const renders = useRef(0)
 
+  const [cursor, dispatch] = useReducer(function reducer(state, action) {
+    if (action.type === 'add') {
+      return state.set(action.key, true)
+    } else if (action.type === 'remove') {
+      return state.set(action.key, false)
+    }
+  }, OrderedMap())
+
+  renders.current++
+
+  const nextId = Math.min(
+    Math.min(
+      ...cursor
+        .toArray()
+        .filter((x) => x[1])
+        .map((x) => x[0])
+    ) + 1,
+    refs.length - 1
+  )
+  const prevId = Math.max(
+    Math.min(
+      ...cursor
+        .toArray()
+        .filter((x) => x[1])
+        .map((x) => x[0])
+    ) - 1,
+    0
+  )
+
+  // useEffect(() => {
+  //   setActiveComment(intersects.indexOf(true))
+  // }, [intersects])
+
+  // Resets the refs on new data
   useEffect(() => {
     if (data)
       setRefs((elRefs) =>
@@ -29,38 +74,33 @@ export function PostComments({ sub, id }) {
       )
   }, [data])
 
+  // Handles the scrolling into view
   useEffect(() => {
-    refs[cursor]?.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    })
-  }, [cursor])
-
-  console.log(cursor)
+    // refs[scrollPos]?.current.scrollIntoView({
+    //   behavior: 'smooth',
+    //   block: 'start',
+    //   inline: 'nearest',
+    // })
+    if (refs[scrollPos])
+      window.scrollTo({
+        top:
+          refs[scrollPos].current.getBoundingClientRect().top +
+          window.pageYOffset,
+        behavior: 'smooth',
+      })
+  }, [scrollPos])
 
   useEffect(() => {
     if (data && data.length && downPress) {
-      setCursor((prevState) =>
-        prevState < data.length - 1 ? prevState + 1 : prevState
-      )
+      setScrollPos(nextId)
     }
-    console.log('DOWNN', data)
   }, [downPress])
+
   useEffect(() => {
     if (data && data.length && upPress) {
-      setCursor((prevState) => (prevState > 0 ? prevState - 1 : prevState))
+      setScrollPos(prevId)
     }
   }, [upPress])
-  // useEffect(() => {
-  //   if (data && data.length && enterPress) {
-  //     setSelected(data[cursor])
-  //   }
-  // }, [cursor, enterPress])
-  // useEffect(() => {
-  //   if (data && data.length && hovered) {
-  //     setCursor(data.indexOf(hovered))
-  //   }
-  // }, [hovered])
 
   if (isError) return <p>Failed to load comments</p>
   if (isLoading) return <p>Loading comments...</p>
@@ -68,22 +108,18 @@ export function PostComments({ sub, id }) {
   return (
     <div>
       {data.map((comment, i) => (
-        <div
-          ref={refs[i]}
+        <TopLevelComment
           key={comment.name}
-          className={`comment ${i === cursor ? 'active' : ''}`}
-          onClick={() => setSelected(comment)}
-          onMouseEnter={() => setHovered(comment)}
-          onMouseLeave={() => setHovered(undefined)}
-        >
-          <Comment comment={comment} />
-        </div>
+          cursor={cursor}
+          dispatch={dispatch}
+          refs={refs}
+          id={i}
+          comment={comment}
+        />
       ))}
       <style global jsx>{`
-        .active {
-          transform: translateY(-1px);
-          margin-top: -1px;
-          background: white;
+        .active > div {
+          background: #f5f6ff;
         }
       `}</style>
     </div>
