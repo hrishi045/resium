@@ -6,7 +6,7 @@ Resium is a reddit client for the web.
 
 ## Run (Development mode)
 
-1. [Create a reddit *web app*](https://www.reddit.com/prefs/apps) and set the redirect URL to your development server's base url.
+1. [Create a reddit _web app_](https://www.reddit.com/prefs/apps) and set the redirect URL to your development server's base url.
 2. Generate a secure random string `SECRET` using your favorite method of choice. If you want to listen to cosmic microwave background radiation, I won't stop you. Or you could just do:
 
 ```sh
