@@ -11,7 +11,11 @@ import { useCommentsForPost } from '../redditapi/hooks'
 import useKeyPress from '../utils/useKeyPress'
 import TopLevelComment from './TopLevelComment'
 
-export function PostComments({ sub, id }) {
+interface PostCommentsProp {
+  sub: string
+  id: string
+}
+export function PostComments({ sub, id }: PostCommentsProp) {
   const {
     data,
     isLoading,

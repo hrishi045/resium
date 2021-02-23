@@ -37,7 +37,7 @@ export default function Handler() {
           <source src={data.media.reddit_video.fallback_url} type="video/mp4" />
         </video>
       )}
-      {data.url && (data.url as string).match(/\.(jpg|jpeg|png|gif)/) && (
+      {data.url && (data.url as string).match(/\.(jpg|jpeg|png|gif|webp)/) && (
         <img className={styles.image} src={data.url} />
       )}
       {id.length >= 3 ? (
@@ -50,7 +50,7 @@ export default function Handler() {
           />
         </>
       ) : (
-        <PostComments sub={subreddit} id={data.id} />
+        <PostComments sub={subreddit as string} id={data.id} />
       )}
     </div>
   )

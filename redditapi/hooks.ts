@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import fetcher from './fetcher'
 
-export function usePost({ id }) {
+export function usePost({ id }: { id: string }) {
   const { data, error } = useSWR(`/api/reddit/by_id/${id}`, fetcher)
 
   return {
@@ -11,7 +11,7 @@ export function usePost({ id }) {
   }
 }
 
-export function useCommentsForPost({ sub, id }) {
+export function useCommentsForPost({ sub, id }: { sub: string; id: string }) {
   const { data, error } = useSWR(
     `/api/reddit/r/${sub}/comments/${id}?raw_json=1`,
     fetcher
@@ -24,7 +24,15 @@ export function useCommentsForPost({ sub, id }) {
   }
 }
 
-export function useMoreCommentsForPost({ sub, id, comment }) {
+export function useMoreCommentsForPost({
+  sub,
+  id,
+  comment,
+}: {
+  sub: string
+  id: string
+  comment: string
+}) {
   const { data, error } = useSWR(
     `/api/reddit/r/${sub}/comments/${id}/blah/${comment}`,
     fetcher
@@ -37,7 +45,7 @@ export function useMoreCommentsForPost({ sub, id, comment }) {
   }
 }
 
-export function useMoreComments({ id }) {
+export function useMoreComments({ id }: { id: string }) {
   const { data, error } = useSWR(
     `/api/morechildren?api_type=json&link_id=${id}`,
     fetcher

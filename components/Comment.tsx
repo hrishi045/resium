@@ -2,25 +2,40 @@ import Link from 'next/link'
 import React from 'react'
 import styles from '../styles/Comment.module.scss'
 import { replaceRedditLinks } from '../utils/processMarkdown'
+import cx from 'classnames'
 
 interface CommentProps {
   comment: Record<string, any>
 }
-const Comment = ({ comment }: CommentProps) => {
+export function CommentBody({ comment }: CommentProps) {
   return (
-    <div className={styles.comment}>
-      <div className={styles.body}>
-        <div className={styles.wrapper}>
+    <>
+      <div className={cx(styles.body, 'm-0 overflow-hidden')}>
+        <div
+          className={cx(styles.wrapper, 'px-3 py-1 text-sm border-t border-b')}
+        >
           <div>
-            <div className={styles.header}>
-              <div className={styles.author}>{comment.author}</div>
+            <div
+              className={cx(
+                styles.header,
+                'flex gap-2 mt-2 text-xs text-gray-600'
+              )}
+            >
+              <div
+                className={cx(
+                  styles.author,
+                  'pl-0 font-medium text-yellow-800 border-l-0'
+                )}
+              >
+                {comment.author}
+              </div>
               <div className={styles.points}>{comment.ups} points</div>
             </div>
             <div
               dangerouslySetInnerHTML={{
                 __html: replaceRedditLinks(comment.body_html),
               }}
-              className={styles.text}
+              className="mb-2 text-gray-800"
             ></div>
           </div>
           {comment.replies.length === 0 && comment.depth === 9 && (
@@ -33,6 +48,13 @@ const Comment = ({ comment }: CommentProps) => {
       {comment.replies.map((reply) => (
         <Comment key={reply.name} comment={reply} />
       ))}
+    </>
+  )
+}
+const Comment = ({ comment }: CommentProps) => {
+  return (
+    <div className={styles.comment}>
+      <CommentBody comment={comment} />
     </div>
   )
 }
