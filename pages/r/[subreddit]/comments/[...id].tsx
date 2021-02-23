@@ -5,6 +5,8 @@ import styles from '../../../../styles/Post.module.scss'
 import { usePost } from '../../../../redditapi/hooks'
 import { PostCommentsInner } from '../../../../components/PostCommentsInner'
 import { PostComments } from '../../../../components/PostComments'
+import cx from 'classnames'
+import ThemeChanger from '../../../../components/ThemeChanger'
 
 export default function Handler() {
   const {
@@ -18,11 +20,17 @@ export default function Handler() {
   if (isLoading) return <p>Loading post...</p>
 
   return (
-    <div className={styles.post}>
+    <div
+      className={cx(
+        styles.post,
+        'bg-white dark:bg-gray-900 pb-12 mx-auto sm:mb-0'
+      )}
+    >
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{data.title}</title>
       </Head>
+      <ThemeChanger />
       <p className={styles.subreddit}>/r/{data.subreddit}</p>
       <br />
       <p className={styles.author}>{data.author}</p>

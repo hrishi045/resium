@@ -1,83 +1,49 @@
 .comment {
-  .text {
-    color: #444444;
-    margin-bottom: 0.5em;
-  }
-
-  .body {
-    .wrapper {
-      .actions {
-        line-height: 1.2;
-        padding-bottom: 0.5em;
-      }
-
-      .votes {
-        display: flex;
-        gap: 0.25em;
-
-        button {
-          color: #999999;
-          cursor: pointer;
-          background: 0;
-          border: 0;
-          padding: 0;
-          padding-bottom: 0.2em;
-          border-bottom: 1px solid #aaaaaa;
-
-          &.done:first-child {
-            color: rgb(194, 83, 42);
-          }
-
-          &.done:last-child {
-            color: rgb(92, 71, 212);
-          }
-
-          &:hover {
-            color: #555555;
-          }
-        }
-      }
-    }
-  }
-
   .body:first-child {
-    border-left: 4px solid #666666;
-    border-right: 4px solid hsl(0, 0%, 64%);
+    @apply border-l-4 border-gray-700 dark:border-gray-200;
   }
 
   .comment {
     margin-left: 0em;
     padding-left: 1vw;
+
     .body {
-      border-left: 4px solid hsl(340, 57%, 64%);
+      @apply dark:border-fuchsia-300 border-fuchsia-600 border-l-4;
     }
     .comment {
       .body {
-        border-left-color: hsl(60, 57%, 64%);
+        // border-left-color: hsl(60, 57%, 64%);
+        @apply dark:border-yellow-300 border-yellow-600;
       }
       .comment {
         .body {
-          border-left-color: hsl(270, 57%, 64%);
+          // border-left-color: hsl(270, 57%, 64%);
+          @apply dark:border-purple-400 border-purple-600;
         }
         .comment {
           .body {
-            border-left-color: hsl(0, 57%, 64%);
+            // border-left-color: hsl(0, 57%, 64%);
+            @apply dark:border-rose-400 border-rose-600;
           }
           .comment {
             .body {
-              border-left-color: hsl(200, 57%, 64%);
+              // border-left-color: hsl(200, 57%, 64%);
+              @apply dark:border-lightBlue-400 border-lightBlue-600;
             }
             .comment {
               .body {
-                border-left-color: hsl(90, 57%, 64%);
+                // border-left-color: hsl(90, 57%, 64%);
+                @apply dark:border-green-400 border-green-600;
               }
               .comment {
                 .body {
-                  border-left-color: hsl(340, 57%, 64%);
+                  // border-left-color: hsl(340, 57%, 64%);
+                  @apply dark:border-pink-400 border-pink-600;
                 }
                 .comment {
                   .body {
-                    border-left-color: hsl(190, 57%, 64%);
+                    // border-left-color: hsl(190, 57%, 64%);
+                    @apply dark:border-indigo-400 border-indigo-600;
                   }
                 }
               }
@@ -102,4 +68,6 @@
 
 .body {
   margin-top: -1px;
+  font-family: 'Roboto', sans-serif;
+  @apply text-lg;
 }

@@ -9,6 +9,7 @@ import React, {
 } from 'react'
 import { useCommentsForPost } from '../redditapi/hooks'
 import useKeyPress from '../utils/useKeyPress'
+import MobileFooter from './MobileFooter'
 import TopLevelComment from './TopLevelComment'
 
 interface PostCommentsProp {
@@ -94,16 +95,24 @@ export function PostComments({ sub, id }: PostCommentsProp) {
       })
   }, [scrollPos])
 
-  useEffect(() => {
-    if (data && data.length && downPress) {
+  const goNext = () => {
+    if (data && data.length) {
       setScrollPos(nextId)
     }
+  }
+
+  const goPrev = () => {
+    if (data && data.length) {
+      setScrollPos(prevId)
+    }
+  }
+
+  useEffect(() => {
+    if (downPress) goNext()
   }, [downPress])
 
   useEffect(() => {
-    if (data && data.length && upPress) {
-      setScrollPos(prevId)
-    }
+    if (upPress) goPrev()
   }, [upPress])
 
   if (isError) return <p>Failed to load comments</p>
@@ -121,11 +130,7 @@ export function PostComments({ sub, id }: PostCommentsProp) {
           comment={comment}
         />
       ))}
-      <style global jsx>{`
-        .active > div {
-          background: #f5f6ff;
-        }
-      `}</style>
+      <MobileFooter goNext={goNext} goPrev={goPrev} />
     </div>
   )
 }

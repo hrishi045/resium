@@ -12,19 +12,22 @@ export function CommentBody({ comment }: CommentProps) {
     <>
       <div className={cx(styles.body, 'm-0 overflow-hidden')}>
         <div
-          className={cx(styles.wrapper, 'px-3 py-1 text-sm border-t border-b')}
+          className={cx(
+            styles.wrapper,
+            'px-3 py-1 text-sm border-t border-b border-gray-300 dark:border-gray-700'
+          )}
         >
           <div>
             <div
               className={cx(
                 styles.header,
-                'flex gap-2 mt-2 text-xs text-gray-600'
+                'flex gap-2 my-2 text-xs text-gray-600 dark:text-coolGray-400'
               )}
             >
               <div
                 className={cx(
                   styles.author,
-                  'pl-0 font-medium text-yellow-800 border-l-0'
+                  'pl-0 font-medium text-yellow-800 dark:text-yellow-300 border-l-0'
                 )}
               >
                 {comment.author}
@@ -35,7 +38,7 @@ export function CommentBody({ comment }: CommentProps) {
               dangerouslySetInnerHTML={{
                 __html: replaceRedditLinks(comment.body_html),
               }}
-              className="mb-2 text-gray-800"
+              className="mb-2 text-sm text-gray-900 dark:text-gray-200"
             ></div>
           </div>
           {comment.replies.length === 0 && comment.depth === 9 && (

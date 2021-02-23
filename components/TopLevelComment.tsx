@@ -1,6 +1,7 @@
 import { OrderedMap } from 'immutable'
 import React, { Dispatch, RefObject, useEffect } from 'react'
 import styles from '../styles/Comment.module.scss'
+import cx from 'classnames'
 import { CommentBody } from './Comment'
 
 interface TopLevelCommentProps {
@@ -38,7 +39,10 @@ const TopLevelComment = ({
   }, [cursor, refs])
 
   return (
-    <div className={styles.comment} ref={refs[id]}>
+    <div
+      className={cx(styles.comment, 'bg-white dark:bg-gray-900')}
+      ref={refs[id]}
+    >
       <CommentBody comment={comment} />
     </div>
   )
