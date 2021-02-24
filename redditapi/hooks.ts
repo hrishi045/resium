@@ -67,3 +67,43 @@ export function useHot() {
     isError: error,
   }
 }
+
+export function useNew() {
+  const { data, error } = useSWR(`/api/reddit/new?limit=30`, fetcher)
+
+  return {
+    data: data,
+    isLoading: !error && !data,
+    isError: error,
+  }
+}
+
+export function useTop() {
+  const { data, error } = useSWR(`/api/reddit/top?limit=30`, fetcher)
+
+  return {
+    data: data,
+    isLoading: !error && !data,
+    isError: error,
+  }
+}
+
+export function useUser({ id }: { id: string }) {
+  const { data, error } = useSWR(`/api/reddit/u/${id}?limit=30`, fetcher)
+
+  return {
+    data: data,
+    isLoading: !error && !data,
+    isError: error,
+  }
+}
+
+export function useSubreddit({ id }: { id: string }) {
+  const { data, error } = useSWR(`/api/reddit/r/${id}?limit=30`, fetcher)
+
+  return {
+    data: data,
+    isLoading: !error && !data,
+    isError: error,
+  }
+}

@@ -1,29 +1,29 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useSubreddit } from '../../../redditapi/hooks'
+import { useUser } from '../../../redditapi/hooks'
 import Head from 'next/head'
 import Link from 'next/link'
 
 const Router = () => {
   const {
-    query: { subreddit },
+    query: { username },
   } = useRouter()
 
-  const { data, isLoading, isError } = useSubreddit({ id: subreddit as string })
+  const { data, isLoading, isError } = useUser({ id: username as string })
 
-  if (isError) return <p>Failed to fetch post</p>
-  if (isLoading) return <p>Loading post &hellip;</p>
+  if (isError) return <p>Failed to fetch user</p>
+  if (isLoading) return <p>Loading user...</p>
 
   return (
     <div>
       <Head>
-        <title>r/{subreddit}</title>
+        <title>u/{username}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <div>
-          <h1 className="text-lg font-medium">r/{subreddit}</h1>
+          <h1 className="text-lg font-medium">u/{username}</h1>
         </div>
         {data.map((post) => (
           <div className="post" key={post.name}>

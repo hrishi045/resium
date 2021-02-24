@@ -40,7 +40,11 @@ const TopLevelComment = ({
 
   return (
     <div
-      className={cx(styles.comment, 'bg-white dark:bg-gray-900')}
+      className={cx(
+        styles.comment,
+        styles.topLevelComment,
+        'bg-white dark:bg-gray-900'
+      )}
       ref={refs[id]}
     >
       <CommentBody comment={comment} />

@@ -11,6 +11,7 @@ import { useMoreCommentsForPost } from '../redditapi/hooks'
 import useKeyPress from '../utils/useKeyPress'
 import TopLevelComment from './TopLevelComment'
 import { OrderedMap } from 'immutable'
+import router from 'next/router'
 
 export function PostCommentsInner({ currentPath, sub, id, comment }) {
   const { data, isLoading, isError } = useMoreCommentsForPost({
@@ -95,14 +96,25 @@ export function PostCommentsInner({ currentPath, sub, id, comment }) {
 
   return (
     <div>
-      <Link href={currentPath.replace(data[0].id, '')}>View all comments</Link>
-      {data[0] && (
-        <Link
-          href={currentPath.replace(data[0].id, data[0].parent_id.slice(3))}
+      <div className="flex justify-start gap-1 uppercase border-t border-l-2 border-gray-100 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
+        {/* <Link href={currentPath.replace(data[0].id, '')}> */}
+        <a
+          onClick={() => router.back()}
+          className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase cursor-pointer hover:text-gray-800 dark:hover:text-gray-400"
         >
-          Go to parent
-        </Link>
-      )}
+          View all comments
+        </a>
+        {/* </Link> */}
+        {data[0] && (
+          <Link
+            href={currentPath.replace(data[0].id, data[0].parent_id.slice(3))}
+          >
+            <a className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase cursor-pointer hover:text-gray-800 dark:hover:text-gray-400">
+              Go to parent
+            </a>
+          </Link>
+        )}
+      </div>
       {data.map((comment, i) => (
         <TopLevelComment
           key={comment.name}

@@ -1,14 +1,14 @@
-.comment {
-  .body:first-child {
-    @apply border-l-4 border-gray-700 dark:border-gray-200;
-  }
+div.topLevelComment.comment > div.body {
+  @apply border-l-2 border-gray-700 dark:border-gray-200;
+}
 
-  .comment {
+.comment {
+  div.comment {
     margin-left: 0em;
     padding-left: 1vw;
 
-    .body {
-      @apply dark:border-fuchsia-300 border-fuchsia-600 border-l-4;
+    .body:first-child {
+      @apply dark:border-fuchsia-300 border-fuchsia-600 border-l-2;
     }
     .comment {
       .body {

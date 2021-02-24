@@ -7,7 +7,7 @@ const Home = () => {
   const { data, isError, isLoading } = useHot()
 
   if (isError) return <Link href="/api/auth/signin/reddit">Sign in</Link>
-  if (isLoading) return <p>Loading posts</p>
+  if (isLoading) return <p>Loading posts &hellip;</p>
 
   return (
     <div className="container">
@@ -20,7 +20,9 @@ const Home = () => {
         {data.map((post) => (
           <div className="post" key={post.name}>
             <p>
-              <Link href={post.permalink}>{post.title}</Link>
+              <Link href={post.permalink}>
+                <a>{post.title}</a>
+              </Link>
             </p>
           </div>
         ))}

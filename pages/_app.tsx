@@ -1,5 +1,5 @@
 import '../styles/tailwind.css'
-import '../styles/global.css'
+import '../styles/utilities.css'
 import { ThemeProvider } from 'next-themes'
 
 export default function MyApp({ Component, pageProps }) {
@@ -7,7 +7,7 @@ export default function MyApp({ Component, pageProps }) {
     <ThemeProvider
       attribute="class"
       storageKey="resium-color-mode"
-      defaultTheme="system" // default "light"
+      defaultTheme="system"
     >
       <Component {...pageProps} />
     </ThemeProvider>

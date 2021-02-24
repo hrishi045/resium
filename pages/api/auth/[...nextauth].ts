@@ -19,7 +19,8 @@ const options: InitOptions = {
       name: 'Reddit',
       clientId: process.env.REDDIT_CLIENT_ID,
       clientSecret: process.env.REDDIT_CLIENT_SECRET,
-      scope: 'identity mysubreddits read',
+      scope:
+        'identity mysubreddits read account creddits edit flair history identity livemanage modconfig modcontributors modflair modlog modmail modothers modposts modself modwiki privatemessages report save structuredstyles submit subscribe vote wikiedit wikiread',
       type: 'oauth',
       version: '2.0',
       params: { grant_type: 'authorization_code' },
