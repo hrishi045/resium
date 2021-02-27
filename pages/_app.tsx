@@ -1,4 +1,5 @@
-import '../styles/tailwind.css'
+import '../styles/base.css'
+import '../styles/components.css'
 import '../styles/utilities.css'
 import { ThemeProvider } from 'next-themes'
 
