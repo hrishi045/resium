@@ -22,15 +22,14 @@ export function CommentBody({ comment }: CommentProps) {
         <div
           className={cx(
             styles.wrapper,
-            'px-3 py-1 text-sm'
-            // 'px-3 py-1 text-sm'
+            'px-3 py-1 border-b border-t border-gray-200 dark:border-gray-700'
           )}
         >
           <div>
             <div
               className={cx(
                 styles.header,
-                'flex gap-2 my-2 text-xs text-gray-600 dark:text-coolGray-400'
+                'flex gap-2 my-2 text-sm text-gray-600 dark:text-coolGray-400'
               )}
             >
               <div
@@ -46,36 +45,37 @@ export function CommentBody({ comment }: CommentProps) {
                 {dayjs.unix(comment.created_utc).fromNow()}
               </div>
             </div>
-            {/* <div
-              dangerouslySetInnerHTML={{
-                __html: replaceRedditLinks(comment.body_html),
+            <div
+              style={{
+                fontFamily: 'Roboto',
+                lineHeight: '1.4',
               }}
-              
-            ></div> */}
-            <ReactMarkDownHTML
-              className="mb-2 text-sm text-gray-900 dark:text-gray-200"
-              escapeHtml={false}
-              source={replaceRedditLinks(comment.body_html)}
-              renderers={{
-                link: ({ children, href }) => {
-                  if (href.contains(process.env.NEXT_PUBLIC_BASE_URL))
-                    return (
-                      <Link href={href}>
-                        <a>{children}</a>
-                      </Link>
-                    )
-                  else
-                    return <ExternalLink href={href}>{children}</ExternalLink>
-                },
-              }}
-            />
+            >
+              <ReactMarkDownHTML
+                className="mb-2 antialiased text-gray-900 sm:text-sm dark:text-gray-200"
+                escapeHtml={false}
+                source={replaceRedditLinks(comment.body_html)}
+                renderers={{
+                  link: ({ children, href }) => {
+                    if (href.contains(process.env.NEXT_PUBLIC_BASE_URL))
+                      return (
+                        <Link href={href}>
+                          <a>{children}</a>
+                        </Link>
+                      )
+                    else
+                      return <ExternalLink href={href}>{children}</ExternalLink>
+                  },
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
       {comment.replies.length === 0 && comment.depth === 9 && (
         <div className="border-l-2 border-gray-800 dark:border-gray-400">
           <Link href={comment.permalink}>
-            <a className="block px-3 py-2 text-xs font-semibold text-gray-500 uppercase cursor-pointer hover:text-gray-800 bg-gray-50 dark:bg-gray-900 dark:hover:text-gray-400">
+            <a className="block px-3 py-2 text-sm font-semibold text-gray-500 uppercase cursor-pointer hover:text-gray-800 bg-gray-50 dark:bg-gray-900 dark:hover:text-gray-400">
               Continue thread &hellip;
             </a>
           </Link>
