@@ -58,8 +58,11 @@ export function useMoreComments({ id }: { id: string }) {
   }
 }
 
-export function useHot() {
-  const { data, error } = useSWR(`/api/reddit/hot?limit=30`, fetcher)
+export function useHot(limit?: number) {
+  const { data, error } = useSWR(
+    `/api/reddit/hot?limit=${limit || 30}`,
+    fetcher
+  )
 
   return {
     data: data,
@@ -68,8 +71,11 @@ export function useHot() {
   }
 }
 
-export function useNew() {
-  const { data, error } = useSWR(`/api/reddit/new?limit=30`, fetcher)
+export function useNew(limit?: number) {
+  const { data, error } = useSWR(
+    `/api/reddit/new?limit=${limit || 30}`,
+    fetcher
+  )
 
   return {
     data: data,
@@ -78,8 +84,11 @@ export function useNew() {
   }
 }
 
-export function useTop() {
-  const { data, error } = useSWR(`/api/reddit/top?limit=30`, fetcher)
+export function useTop(limit?: number) {
+  const { data, error } = useSWR(
+    `/api/reddit/top?limit=${limit || 30}`,
+    fetcher
+  )
 
   return {
     data: data,
