@@ -1,0 +1,65 @@
+@tailwind base;
+
+@layer base {
+  html {
+    --scrollbarBG: #c0c0c0;
+    --thumbBG: #666666;
+  }
+
+  html.dark {
+    --scrollbarBG: #333333;
+    --thumbBG: #a0a0a0;
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    @apply text-gray-800 bg-white dark:bg-gray-900 dark:text-gray-200;
+  }
+
+  a {
+    @apply text-blue-600 cursor-pointer hover:underline focus:underline dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300;
+  }
+
+  body::-webkit-scrollbar {
+    @apply w-3;
+  }
+  body {
+    scrollbar-width: auto;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  }
+  body::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+  }
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+  }
+
+  button:focus,
+  a:focus {
+    @apply outline-none ring-2 ring-blue-500;
+  }
+
+  html {
+    font-size: 12px;
+  }
+
+  @screen sm {
+    html {
+      font-size: 14px;
+    }
+  }
+
+  @screen md {
+    html {
+      font-size: 16px;
+    }
+  }
+}
