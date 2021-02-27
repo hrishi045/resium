@@ -6,7 +6,6 @@ import { usePost } from '../../../../redditapi/hooks'
 import { PostCommentsInner } from '../../../../components/PostCommentsInner'
 import { PostComments } from '../../../../components/PostComments'
 import cx from 'classnames'
-import ThemeChanger from '../../../../components/ThemeChanger'
 import Link from 'next/link'
 
 export default function Handler() {
@@ -31,23 +30,22 @@ export default function Handler() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{data.title}</title>
       </Head>
-      <ThemeChanger />
       <div className="p-4">
         <div className="py-4">
           <Link href={`/r/${data.subreddit}`}>
-            <a className="text-base font-bold text-yellow-900 dark:text-lightBlue-300">
+            <a className="font-bold text-yellow-900 dark:text-lightBlue-300">
               /r/{data.subreddit}
             </a>
           </Link>
           <br />
           <Link href={`/u/${data.author}`}>
-            <a className="text-base font-medium text-fuchsia-800 dark:text-indigo-400">
+            <a className="font-medium text-fuchsia-800 dark:text-indigo-400">
               /u/{data.author}
             </a>
           </Link>
-          <p className="font-medium text-gray-700 dark:text-gray-200">
+          <h1 className="font-medium text-gray-700 dark:text-gray-200">
             {data.title}
-          </p>
+          </h1>
         </div>
         <p className={styles.selftext}>{data.selftext}</p>
         {data.media && (
@@ -64,7 +62,7 @@ export default function Handler() {
         )}
         {data.url &&
           (data.url as string).match(/\.(jpg|jpeg|png|gif|webp)/) && (
-            <img className={styles.image} src={data.url} />
+            <img className="max-w-full max-h-96" src={data.url} />
           )}
       </div>
 
