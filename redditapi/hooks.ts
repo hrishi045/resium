@@ -97,8 +97,8 @@ export function useTop(limit?: number) {
   }
 }
 
-export function useUser({ id }: { id: string }) {
-  const { data, error } = useSWR(`/api/reddit/u/${id}?limit=30`, fetcher)
+export function useUser(limit: number, { id }: { id: string }) {
+  const { data, error } = useSWR(`/api/reddit/u/${id}?limit=${limit}`, fetcher)
 
   return {
     data: data,
@@ -107,8 +107,8 @@ export function useUser({ id }: { id: string }) {
   }
 }
 
-export function useSubreddit({ id }: { id: string }) {
-  const { data, error } = useSWR(`/api/reddit/r/${id}?limit=30`, fetcher)
+export function useSubreddit(limit, { id }: { id: string }) {
+  const { data, error } = useSWR(`/api/reddit/r/${id}?limit=${limit}`, fetcher)
 
   return {
     data: data,

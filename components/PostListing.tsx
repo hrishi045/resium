@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { Dispatch, ReactChild, ReactChildren, SetStateAction } from 'react'
+import { Dispatch, ReactChild, SetStateAction } from 'react'
 import ErrorResp from '../types/ErrorResp'
 import Post from '../types/Post'
 
