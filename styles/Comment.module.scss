@@ -1,8 +1,8 @@
-div.topLevelComment.comment > div.body {
-  @apply border-l-2 border-gray-700 dark:border-gray-200;
-}
-
 .comment {
+  .body:first-child {
+    @apply border-l-2 border-gray-700 dark:border-gray-200;
+  }
+
   div.comment {
     margin-left: 0em;
     padding-left: 1vw;
@@ -12,37 +12,30 @@ div.topLevelComment.comment > div.body {
     }
     .comment {
       .body {
-        // border-left-color: hsl(60, 57%, 64%);
         @apply dark:border-yellow-300 border-yellow-600;
       }
       .comment {
         .body {
-          // border-left-color: hsl(270, 57%, 64%);
           @apply dark:border-purple-400 border-purple-600;
         }
         .comment {
           .body {
-            // border-left-color: hsl(0, 57%, 64%);
-            @apply dark:border-rose-400 border-rose-600;
+            @apply dark:border-indigo-400 border-indigo-600;
           }
           .comment {
             .body {
-              // border-left-color: hsl(200, 57%, 64%);
               @apply dark:border-lightBlue-400 border-lightBlue-600;
             }
             .comment {
               .body {
-                // border-left-color: hsl(90, 57%, 64%);
                 @apply dark:border-green-400 border-green-600;
               }
               .comment {
                 .body {
-                  // border-left-color: hsl(340, 57%, 64%);
                   @apply dark:border-pink-400 border-pink-600;
                 }
                 .comment {
                   .body {
-                    // border-left-color: hsl(190, 57%, 64%);
                     @apply dark:border-indigo-400 border-indigo-600;
                   }
                 }
