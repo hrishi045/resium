@@ -1,12 +1,13 @@
-import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 
 import { usePostListing } from '../redditapi/hooks'
 import Sorter from './Sorter'
 
+type FrontPageTypes = 'hot' | 'new' | 'top'
+
 interface PostListingProps {
-  type: 'hot' | 'new' | 'top'
+  type: FrontPageTypes | string
 }
 export default function PostListing({ type }: PostListingProps) {
   const {
@@ -87,16 +88,13 @@ export default function PostListing({ type }: PostListingProps) {
 
   return (
     <div>
-      <Head>
-        <title>Title</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main className="block max-w-4xl px-2 py-4 mx-auto mt-8 divide-y divide-gray-100 dark:divide-gray-700">
-        <div className="my-4">
-          <h1 className="my-4 text-4xl font-bold text-center">r/hot</h1>
-          <Sorter selected="hot" />
-        </div>
+        {(type === 'hot' || type === 'new' || type === 'top') && (
+          <div className="my-4">
+            <h1 className="my-4 text-4xl font-bold text-center">r/{type}</h1>
+            <Sorter selected={type} />
+          </div>
+        )}
         {content}
       </main>
     </div>
