@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
+    "prebuild": "next telemetry disable",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --pretty --noEmit",
@@ -30,6 +31,7 @@
     "@types/snoowrap": "^1.19.0",
     "autoprefixer": "^10.2.4",
     "axe-core": "^4.1.2",
+    "axios": "^0.21.1",
     "dayjs": "^1.10.4",
     "immutable": "^4.0.0-rc.12",
     "next": "latest",
@@ -41,6 +43,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-markdown": "^5.0.3",
+    "react-query": "^3.13.0",
     "react-virtualized": "^9.22.3",
     "react-virtualized-auto-sizer": "^1.0.4",
     "react-window": "^1.8.6",

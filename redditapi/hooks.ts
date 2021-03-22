@@ -1,5 +1,8 @@
 import useSWR from 'swr'
 import fetcher from './fetcher'
+import axios from 'axios'
+
+import { useInfiniteQuery } from 'react-query'
 
 export function usePost({ id }: { id: string }) {
   const { data, error } = useSWR(`/api/reddit/by_id/${id}`, fetcher)
@@ -58,42 +61,40 @@ export function useMoreComments({ id }: { id: string }) {
   }
 }
 
-export function useHot(limit?: number) {
-  const { data, error } = useSWR(
-    `/api/reddit/hot?limit=${limit || 30}`,
-    fetcher
-  )
-
-  return {
-    data: data,
-    isLoading: !error && !data,
-    isError: error,
-  }
+export type PostResponseData = {
+  data: object[] | { error: any }
 }
 
-export function useNew(limit?: number) {
-  const { data, error } = useSWR(
-    `/api/reddit/new?limit=${limit || 30}`,
-    fetcher
+export function usePostListing(type: string, limit?: number) {
+  const {
+    data,
+    isFetching,
+    fetchNextPage,
+    isError,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery<PostResponseData>(
+    type || 'hot',
+    async function ({ pageParam }) {
+      return await axios(
+        `/api/reddit/${type || 'hot'}?limit=${limit || 30}&after=${pageParam}`
+      )
+    },
+    {
+      getNextPageParam: (lastPage) => {
+        if (!lastPage) return ''
+        return lastPage.data[(limit || 30) - 1].name
+      },
+    }
   )
 
   return {
     data: data,
-    isLoading: !error && !data,
-    isError: error,
-  }
-}
-
-export function useTop(limit?: number) {
-  const { data, error } = useSWR(
-    `/api/reddit/top?limit=${limit || 30}`,
-    fetcher
-  )
-
-  return {
-    data: data,
-    isLoading: !error && !data,
-    isError: error,
+    isLoading: isFetching,
+    isError: isError,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
   }
 }
 

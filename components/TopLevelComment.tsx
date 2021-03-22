@@ -43,7 +43,7 @@ const TopLevelComment = ({
       className={cx(
         styles.comment,
         styles.topLevelComment,
-        'bg-white dark:bg-gray-900'
+        'sm:mx-4 bg-gray-50 shadow rounded overflow-hidden'
       )}
       ref={refs[id]}
     >

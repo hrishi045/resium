@@ -18,7 +18,12 @@ interface CommentProps {
 export function CommentBody({ comment }: CommentProps) {
   return (
     <>
-      <div className={cx(styles.body, 'overflow-hidden')}>
+      <div
+        className={cx(
+          styles.body,
+          'overflow-hidden bg-white dark:bg-gray-800 shadow'
+        )}
+      >
         <div
           className={cx(
             styles.wrapper,
@@ -29,7 +34,7 @@ export function CommentBody({ comment }: CommentProps) {
             <div
               className={cx(
                 styles.header,
-                'flex gap-2 my-2 text-sm text-gray-600 dark:text-coolGray-400'
+                'flex gap-2 my-2 text-sm font-medium text-gray-600 dark:text-coolGray-400'
               )}
             >
               <div
@@ -45,14 +50,9 @@ export function CommentBody({ comment }: CommentProps) {
                 {dayjs.unix(comment.created_utc).fromNow()}
               </div>
             </div>
-            <div
-              style={{
-                fontFamily: 'Roboto',
-                lineHeight: '1.4',
-              }}
-            >
+            <div>
               <ReactMarkDownHTML
-                className="mb-2 antialiased text-gray-900 sm:text-sm dark:text-gray-200"
+                className="mb-2 antialiased text-gray-900 sm:text-base dark:text-gray-200"
                 escapeHtml={false}
                 source={replaceRedditLinks(comment.body_html)}
                 renderers={{
